@@ -158,8 +158,6 @@ for i, instruction in enumerate(instructions):
             player.move_one_step(grid)
     if isinstance(instruction, str):
         player.rotate(instruction == "R")
-    #if i % 2 == 1:
-    #    visualize(grid, player)
 
 visualize(grid, player)
 print(player)
