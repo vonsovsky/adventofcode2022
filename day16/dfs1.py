@@ -1,20 +1,21 @@
 import re
 from time import time
-from typing import Optional, Dict, Set
+from typing import Dict, Set
 
 
 cache = {}
 TIME = 30
+INPUT_NAME = 'input2'
 
 
-def get_cache_key(valve_name, opened, rem_time) -> Optional[int]:
+def get_cache_key(valve_name, opened, rem_time) -> tuple:
     return valve_name, tuple(sorted(opened)), rem_time
 
 
 def get_valves():
     valve_map = {}
 
-    with open('input2', 'r') as fr:
+    with open(INPUT_NAME, 'r') as fr:
         pattern = re.compile("Valve ([A-Z]+) has flow rate=(\d+); tunnels? leads? to valves? ([A-Z\s,]+)")
         for line in fr.readlines():
             line = line.strip()
@@ -27,13 +28,6 @@ def get_valves():
             valve_map[valve_name] = {'name': valve_name, 'flow': flow, 'valves': valves}
 
     return valve_map
-
-
-def get_round_score(valves, open_valves):
-    score = 0
-    for valve in open_valves:
-        score += valves[valve]['flow']
-    return score
 
 
 def dfs(valves: Dict[str, dict], valve_name: str, opened: Set[str], rem_time: int):
@@ -63,6 +57,10 @@ def dfs(valves: Dict[str, dict], valve_name: str, opened: Set[str], rem_time: in
 
 start = time()
 valves = get_valves()
-score = dfs(valves, "AA", set(["AA"]), TIME)
-print(score)
-print(time() - start)
+suma = 0
+for valve in valves.values():
+    suma += valve["flow"]
+print(suma)
+#score = dfs(valves, "AA", set(["AA"]), TIME)
+#print(score)
+#print(time() - start)
