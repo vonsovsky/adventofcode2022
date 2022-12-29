@@ -1,3 +1,8 @@
+"""
+DFS solution of 2 players in maze, using cartesian product for possible actions.
+Runs around 1 hour. Result is 2351.
+"""
+
 import re
 from time import time
 from typing import Optional, Dict, List
